@@ -26,17 +26,17 @@ class WordAdd extends Component {
         return null
     }
     render() {
+        const { wordToAdd } = this.state;
         const setWordVals = (event) => {
-            this.state.wordToAdd[event.target.name] = event.target.value;
-            console.log(this.state.wordToAdd);
-
+            let existing = wordToAdd;
+            existing[event.target.name] = event.target.value;
+            this.setState({ wordToAdd: existing });
         }
         const saveWord = () => {
             this.props.refreshWords(this.state.wordToAdd);
 
             alert('başarıyla kaydedildi');
             this.props.returnList();
-            this.state.wordToAdd = {}
         }
         return (
             <div>
@@ -44,18 +44,18 @@ class WordAdd extends Component {
                 <div className='row'>
                     <div className='col-md-12'>
                         <div className='form-group'>
-                            id:<input onChange={setWordVals} name='id' className='form-control' readOnly type='text' />
+                            id:<input onChange={setWordVals} value={wordToAdd.id} name='id' className='form-control' readOnly type='text' />
 
                         </div>
                         <div className='form-group'>
-                            word:<input onChange={setWordVals} name='word' className='form-control' type='text' />
+                            word:<input onChange={setWordVals} value={wordToAdd.word} name='word' className='form-control' type='text' />
                         </div>
                         <div className='form-group'>
-                            meaning:<input onChange={setWordVals} name='meaning' className='form-control' type='text' />
+                            meaning:<input onChange={setWordVals} value={wordToAdd.meaning} name='meaning' className='form-control' type='text' />
                         </div>
                         <div className='form-group'>
                             lngid:
-                            <select className='form-control' name='lngid' onChange={setWordVals}>
+                            <select className='form-control' name='lngid' value={wordToAdd.lngid} onChange={setWordVals}>
                                 {
                                     this.props.langs.map((lng) => {
                                         return <option title={lng.name} value={lng.id} key={lng.id}>{lng.code}</option>

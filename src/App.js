@@ -21,7 +21,20 @@ class App extends React.Component {
       selectedlang: 0
     }
   }
-
+  componentDidMount() {
+    console.log("test başladı");
+    fetch("http://localhost:41116/api/Lang")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          // this.setState({
+          //   isLoaded: true,
+          //   langs: result
+          // });
+        }
+      )
+  }
 
   render() {
     const changeSelectedLang = (sl) => {
