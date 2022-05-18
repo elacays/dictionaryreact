@@ -57,7 +57,7 @@ class App extends React.Component {
               <Routes>
                 <Route path='/' element={<Home />}  ></Route>
                 <Route path='/about' element={<About />} ></Route>
-                <Route path='/words' element={<Words langs={this.state.langs} selectedlang={this.state.selectedlang} />} ></Route>
+                <Route path='/words' element={<Words changeSelectedLang={changeSelectedLang} langs={this.state.langs} selectedlang={this.state.selectedlang} />} ></Route>
               </Routes>
             </div>
           </div>

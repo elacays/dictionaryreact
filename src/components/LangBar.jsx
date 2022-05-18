@@ -10,7 +10,7 @@ class LangBar extends Component {
                         {
                             this.props.langs.map((lng) => {
                                 return (
-                                    <tr key={lng.id} className={'langItem ' + (selectedlang == lng.id ? 'selected' : '')}
+                                    <tr key={lng.id} className={'langItem ' + (selectedlang === lng.id ? 'selected' : '')}
                                         onClick={() => { this.props.changeSelectedLang(lng.id) }}
                                         title={lng.code}>
                                         <td>{lng.name}</td>

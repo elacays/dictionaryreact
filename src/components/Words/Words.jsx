@@ -18,23 +18,13 @@ class Words extends Component {
             ],
             searchKeyword: '',
             searchKeywordMe: '',
-            page: 'list'
+            page: 'list',
+            wordToAddOrUpdate: { id: 0, word: '', meaning: '', lngid: 2 }
         }
     }
 
     render() {
-        const updateItem = (id) => {
-            let words = this.state.words
-            let updatedWord = this.state.words.filter(c => c.id === id)
-            words[updatedWord.id] = updateItem;
-            this.setState({ words })
-            console.log(updatedWord)
-        }
-        const deleteItem = (id) => {
-            let words = this.state.words.filter(c => c.id !== id)
-            this.setState({ words })
-            alert("başarıyla silindi")
-        }
+
         const retrunToListPage = () => {
             this.setState({ page: 'list' });
         }
@@ -53,8 +43,22 @@ class Words extends Component {
             let words = this.state.words;
             word.id = words.slice(-1)[0].id + 1;
             words.push(word);
+            changelang(word.lngid);
             //this.setState({words:words});
             this.setState({ words });
+        }
+        const changelang = (lng) => {
+            console.log(this.props.changeSelectedLang);
+            this.props.changeSelectedLang(lng)
+        }
+
+        const updateItem = (wrdId) => {
+            this.setState({ wordToAddOrUpdate: this.state.words.filter(c => c.id === wrdId)[0] });
+        }
+        const deleteItem = (id) => {
+            let words = this.state.words.filter(c => c.id !== id)
+            this.setState({ words })
+            //alert("başarıyla silindi")
         }
 
         if (this.state.searchKeyword) {
@@ -73,15 +77,15 @@ class Words extends Component {
                         <div className='col-md-4'><input placeholder='meaning' className='form-control' onChange={setFilterValMe} type='text' /></div>
                     </div>
                     <div className='row'>
-                        <div className='col-md-8'><WordList deleteItem={deleteItem} words={filterd} /></div>
-                        <div className='col-md-4'><WordAdd langs={this.props.langs} refreshWords={refreshWords} returnList={retrunToListPage} updateItem={updateItem} /></div>
+                        <div className='col-md-8'><WordList deleteItem={deleteItem} updateItem={updateItem} words={filterd} /></div>
+                        <div className='col-md-4'><WordAdd wordToAddOrUpdate={this.state.wordToAddOrUpdate} langs={this.props.langs} refreshWords={refreshWords} returnList={retrunToListPage} /></div>
                     </div>
                     <button className="btn btn-success" onClick={() => { this.setState({ page: 'add' }) }}>Yeni</button>
                 </div>
             );
         }
         else {
-            return <div><WordAdd langs={this.props.langs} refreshWords={refreshWords} returnList={retrunToListPage} /></div>
+            return <div><WordAdd wordToAddOrUpdate={this.state.wordToAddOrUpdate} langs={this.props.langs} refreshWords={refreshWords} returnList={retrunToListPage} /></div>
         }
     }
 }

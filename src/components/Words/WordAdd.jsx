@@ -6,13 +6,26 @@ class WordAdd extends Component {
         this.state = {
             wordToAdd: { id: '0', word: '', meaning: '', lngid: 1 }
         }
+
+    }
+    componentDidUpdate() {
+        // this.setState({wordToAdd:this.props.wordToAddOrUpdate})
+    }
+
+
+    componentDidMount() {
+        console.log("did mounth executed:" + this.props.wordToAddOrUpdate);
+        this.setState({ wordToAdd: this.props.wordToAddOrUpdate })
+    }
+    static getDerivedStateFromProps(props, current_state) {
+        if (current_state.wordToAdd !== props.wordToAddOrUpdate) {
+            return {
+                wordToAdd: props.wordToAddOrUpdate
+            }
+        }
+        return null
     }
     render() {
-        const updateItem = (id) => {
-            let updatedWord = this.state.words.filter(c => c.id === id)
-            this.setState({ wordToAdd: updatedWord })
-            console.log(updatedWord)
-        }
         const setWordVals = (event) => {
             this.state.wordToAdd[event.target.name] = event.target.value;
             console.log(this.state.wordToAdd);

@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 
 class WordList extends Component {
-    constructor() {
-        super();
-
-
-    }
     render() {
 
         return (
